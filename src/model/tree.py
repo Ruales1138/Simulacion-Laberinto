@@ -3,14 +3,8 @@ class Node:
         self.value = value
         self.children = []
 
-    def _repr(self, level=0):
-        result = "  " * level + f"{self.value}\n"
-        for child in self.children:
-            result += child._repr(level + 1)
-        return result
-
     def __repr__(self):
-        return self._repr()
+        return f'{self.value}'
     
 
 class GeneralTree:
@@ -31,6 +25,17 @@ class GeneralTree:
                 for ch in current_node.children:
                     if (self.insert(parent, child, ch)) is True:
                         return True
+                    
+    def BFS(self, value):
+        start = self.root
+        visited = []
+        to_visit = [start]
+        while to_visit:
+            current = to_visit.pop(0)
+            if current not in visited:
+                visited.append(current)
+                to_visit.extend(current.children)
+        return visited
                     
     def traverse(self, current_node = None):
         if current_node is None:
@@ -84,6 +89,39 @@ class GeneralTree:
                         return True
                     if (self.eliminar_sin_hijos(value, ch) is True):
                         return True
+                    
+    def print(self, node=None, prefix="", is_last=True):
+        if node is None:
+            node = self.root
+        if node is None:
+            print("Empty Tree")
+            return
+        connector = "└── " if is_last else "├── "
+        print(prefix + connector + str(node))
+        new_prefix = prefix + ("    " if is_last else "│   ")
+        child_count = len(node.children)
+        for i, child in enumerate(node.children):
+            is_last_child = (i == child_count - 1)
+            self.print(child, new_prefix, is_last_child)
 
-    def __repr__(self):
-        return self.root._repr() if self.root else "<árbol vacío>"
+
+    
+gt = GeneralTree()
+gt.insert(4,1)
+gt.insert(4,2)
+gt.insert(4,3)
+gt.insert(4,5)
+gt.insert(1, 10)
+gt.insert(2, 11)
+gt.insert(10, 12)
+gt.insert(5, 10)
+gt.insert(10, 66)
+gt.insert(10, 54)
+gt.insert(2, 54)
+gt.insert(12, 54)
+gt.insert(54, 540)
+gt.insert(540, 541)
+gt.insert(10, 666)
+
+print(gt.BFS(10))
+gt.print()
