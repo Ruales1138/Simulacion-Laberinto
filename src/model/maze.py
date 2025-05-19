@@ -1,3 +1,6 @@
+import sys
+sys.path.append('src')
+from model.tree import GeneralTree
 import random
 
 
@@ -5,7 +8,9 @@ class Maze:
     def __init__(self, n_casillas, n_jugadores):
         self.n_casillas: int = n_casillas
         self.n_jugadores: int = n_jugadores
-        self.laberinto = []
+        self.laberinto = None
+        self.ubicacion_jugadores = []
+        self.ubicacion_meta = None
         self.crear_laberinto()
     
     def generar_matriz(self, fila: int = 0, columna: int = 0, matriz: list[list[int]] = [], fila_completa: list[int] = []) -> list[list[int]]:
@@ -22,15 +27,20 @@ class Maze:
         y = random.randint(0, self.n_casillas-1)
         if self.laberinto[x][y] != '👶':
             self.laberinto[x][y] = elemento
+            return x, y
         else:
-            self.ubicar_aleatorio(elemento)
+            return self.ubicar_aleatorio(elemento)
 
     def crear_jugadores(self):
         for _ in range(self.n_jugadores):
-            self.ubicar_aleatorio('👶')
+            x, y = self.ubicar_aleatorio('👶')
+            self.ubicacion_jugadores.append((x, y))
+        print(self.ubicacion_jugadores)
 
     def crear_meta(self):
-        self.ubicar_aleatorio('🚩')
+        x, y = self.ubicar_aleatorio('🚩')
+        self.ubicacion_meta = (x, y)
+        print(self.ubicacion_meta)
 
     def crear_laberinto(self):
         self.laberinto = self.generar_matriz()
@@ -42,6 +52,10 @@ class Maze:
     
 
 
-m = Maze(5, 1)
+m = Maze(5, 10)
 laberinto = m.retornar_laberinto()
 print(*laberinto, sep="\n")
+
+gt = GeneralTree()
+gt.insert((0,0), (2,2))
+print(gt)
