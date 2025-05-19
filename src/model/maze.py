@@ -52,7 +52,7 @@ class Maze:
     
 
 
-m = Maze(5, 10)
+m = Maze(5, 1)
 laberinto = m.retornar_laberinto()
 print(*laberinto, sep="\n")
 
