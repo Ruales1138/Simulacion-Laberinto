@@ -6,6 +6,7 @@ import random
 
 class Maze:
     def __init__(self, n_casillas, n_jugadores):
+        self.arbol = GeneralTree()
         self.n_casillas: int = n_casillas
         self.n_jugadores: int = n_jugadores
         self.laberinto = None
@@ -50,12 +51,45 @@ class Maze:
     def retornar_laberinto(self):
         return self.laberinto
     
+    def crear_arbol(self, current = None):
+        if current is None:
+            pass
+        casillas_visitadas = []
+        ubicacion = self.ubicacion_jugadores[0]
+        x = ubicacion[0]
+        y = ubicacion[1]
+
+        if x+1 < self.n_casillas and self.laberinto[x+1][y] != 'X ':
+            nueva_ubicacion = (x+1, y)
+            if nueva_ubicacion not in casillas_visitadas:
+                casillas_visitadas.append(nueva_ubicacion)
+                self.arbol.insert(ubicacion, nueva_ubicacion)
+
+        if x-1 >= 0 and self.laberinto[x-1][y] != 'X ':
+            nueva_ubicacion = (x-1, y)
+            if nueva_ubicacion not in casillas_visitadas:
+                casillas_visitadas.append(nueva_ubicacion)
+                self.arbol.insert(ubicacion, nueva_ubicacion)
+
+        if y+1 < self.n_casillas and self.laberinto[x][y+1] != 'X ':
+            nueva_ubicacion = (x, y+1)
+            if nueva_ubicacion not in casillas_visitadas:
+                casillas_visitadas.append(nueva_ubicacion)
+                self.arbol.insert(ubicacion, nueva_ubicacion)
+
+        if y-1 >= 0 and self.laberinto[x][y-1] != 'X ':
+            nueva_ubicacion = (x, y-1)
+            if nueva_ubicacion not in casillas_visitadas:
+                casillas_visitadas.append(nueva_ubicacion)
+                self.arbol.insert(ubicacion, nueva_ubicacion)
+
+        print(casillas_visitadas)
+        self.arbol.print()
+    
 
 
 m = Maze(5, 1)
 laberinto = m.retornar_laberinto()
 print(*laberinto, sep="\n")
 
-gt = GeneralTree()
-gt.insert((0,0), (2,2))
-print(gt)
+m.crear_arbol()

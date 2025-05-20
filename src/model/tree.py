@@ -32,6 +32,8 @@ class GeneralTree:
         to_visit = [start]
         while to_visit:
             current = to_visit.pop(0)
+            if current.value == value:
+                return visited
             if current not in visited:
                 visited.append(current)
                 to_visit.extend(current.children)
