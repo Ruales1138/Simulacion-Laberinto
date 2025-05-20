@@ -55,7 +55,7 @@ class Maze:
     def retornar_laberinto(self):
         return self.laberinto
     
-    def crear_arbol(self, current = None, casillas_visitadas = []):
+    def crear_arbol_DFS(self, current = None, casillas_visitadas = []):
         if current is None:
             current = self.ubicacion_jugadores[0]
             casillas_visitadas.append(current)
@@ -67,28 +67,65 @@ class Maze:
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
-                self.crear_arbol(nueva_ubicacion, casillas_visitadas)
+                self.crear_arbol_DFS(nueva_ubicacion, casillas_visitadas)
 
         if x-1 >= 0 and self.laberinto[x-1][y] != self.pared:
             nueva_ubicacion = (x-1, y)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
-                self.crear_arbol(nueva_ubicacion, casillas_visitadas)
+                self.crear_arbol_DFS(nueva_ubicacion, casillas_visitadas)
 
         if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.pared:
             nueva_ubicacion = (x, y+1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
-                self.crear_arbol(nueva_ubicacion, casillas_visitadas)
+                self.crear_arbol_DFS(nueva_ubicacion, casillas_visitadas)
 
         if y-1 >= 0 and self.laberinto[x][y-1] != self.pared:
             nueva_ubicacion = (x, y-1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
-                self.crear_arbol(nueva_ubicacion, casillas_visitadas)
+                self.crear_arbol_DFS(nueva_ubicacion, casillas_visitadas)
+
+    def crear_arbol_BFS(self):
+        inicio = self.ubicacion_jugadores[0]
+        fila = [inicio]
+        casillas_visitadas = []
+        while fila:
+            current = fila.pop()
+            x = current[0]
+            y = current[1]
+
+            if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.pared:
+                nueva_ubicacion = (x+1, y)
+                if nueva_ubicacion not in casillas_visitadas:
+                    casillas_visitadas.append(nueva_ubicacion)
+                    self.arbol.insert(current, nueva_ubicacion)
+                    fila.append(nueva_ubicacion)
+
+            if x-1 >= 0 and self.laberinto[x-1][y] != self.pared:
+                nueva_ubicacion = (x-1, y)
+                if nueva_ubicacion not in casillas_visitadas:
+                    casillas_visitadas.append(nueva_ubicacion)
+                    self.arbol.insert(current, nueva_ubicacion)
+                    fila.append(nueva_ubicacion)
+
+            if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.pared:
+                nueva_ubicacion = (x, y+1)
+                if nueva_ubicacion not in casillas_visitadas:
+                    casillas_visitadas.append(nueva_ubicacion)
+                    self.arbol.insert(current, nueva_ubicacion)
+                    fila.append(nueva_ubicacion)
+
+            if y-1 >= 0 and self.laberinto[x][y-1] != self.pared:
+                nueva_ubicacion = (x, y-1)
+                if nueva_ubicacion not in casillas_visitadas:
+                    casillas_visitadas.append(nueva_ubicacion)
+                    self.arbol.insert(current, nueva_ubicacion)
+                    fila.append(nueva_ubicacion)
 
     def imprimir_arbol(self):
         self.arbol.print()
@@ -103,6 +140,6 @@ m = Maze(5, 1)
 laberinto = m.retornar_laberinto()
 print(*laberinto, sep="\n")
 
-m.crear_arbol()
+m.crear_arbol_BFS()
 m.imprimir_arbol()
 print(m.definir_ruta())
