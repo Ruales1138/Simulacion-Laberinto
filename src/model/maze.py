@@ -7,6 +7,10 @@ import random
 class Maze:
     def __init__(self, n_casillas, n_jugadores):
         self.arbol = GeneralTree()
+        self.vacio: str = '  '
+        self.pared: str = '🧱'
+        self.jugador: str = '👶'
+        self.meta: str = '🚩'
         self.n_casillas: int = n_casillas
         self.n_jugadores: int = n_jugadores
         self.laberinto = None
@@ -20,13 +24,13 @@ class Maze:
         if columna == self.n_casillas:
             matriz.append(fila_completa)
             return self.generar_matriz(fila+1, 0, matriz, [])
-        fila_completa.append(random.choice(['X ', '  ']))
+        fila_completa.append(random.choice([self.vacio, self.pared]))
         return self.generar_matriz(fila, columna+1, matriz, fila_completa)
     
     def ubicar_aleatorio(self, elemento):
         x = random.randint(0, self.n_casillas-1)
         y = random.randint(0, self.n_casillas-1)
-        if self.laberinto[x][y] != '👶':
+        if self.laberinto[x][y] != self.jugador:
             self.laberinto[x][y] = elemento
             return x, y
         else:
@@ -34,12 +38,12 @@ class Maze:
 
     def crear_jugadores(self):
         for _ in range(self.n_jugadores):
-            x, y = self.ubicar_aleatorio('👶')
+            x, y = self.ubicar_aleatorio(self.jugador)
             self.ubicacion_jugadores.append((x, y))
         print(self.ubicacion_jugadores)
 
     def crear_meta(self):
-        x, y = self.ubicar_aleatorio('🚩')
+        x, y = self.ubicar_aleatorio(self.meta)
         self.ubicacion_meta = (x, y)
         print(self.ubicacion_meta)
 
@@ -58,28 +62,28 @@ class Maze:
         x = current[0]
         y = current[1]
 
-        if x+1 < self.n_casillas and self.laberinto[x+1][y] != 'X ':
+        if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.pared:
             nueva_ubicacion = (x+1, y)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
                 self.crear_arbol(nueva_ubicacion, casillas_visitadas)
 
-        if x-1 >= 0 and self.laberinto[x-1][y] != 'X ':
+        if x-1 >= 0 and self.laberinto[x-1][y] != self.pared:
             nueva_ubicacion = (x-1, y)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
                 self.crear_arbol(nueva_ubicacion, casillas_visitadas)
 
-        if y+1 < self.n_casillas and self.laberinto[x][y+1] != 'X ':
+        if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.pared:
             nueva_ubicacion = (x, y+1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
                 self.crear_arbol(nueva_ubicacion, casillas_visitadas)
 
-        if y-1 >= 0 and self.laberinto[x][y-1] != 'X ':
+        if y-1 >= 0 and self.laberinto[x][y-1] != self.pared:
             nueva_ubicacion = (x, y-1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
