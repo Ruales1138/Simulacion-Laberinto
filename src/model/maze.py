@@ -88,6 +88,10 @@ class Maze:
 
     def imprimir_arbol(self):
         self.arbol.print()
+
+    def definir_ruta(self):
+        ruta = self.arbol.BFS(self.ubicacion_meta)
+        return ruta
     
 
 
@@ -97,3 +101,4 @@ print(*laberinto, sep="\n")
 
 m.crear_arbol()
 m.imprimir_arbol()
+print(m.definir_ruta())

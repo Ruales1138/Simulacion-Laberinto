@@ -28,16 +28,23 @@ class GeneralTree:
                     
     def BFS(self, value):
         start = self.root
-        visited = []
-        to_visit = [start]
-        while to_visit:
-            current = to_visit.pop(0)
+        if start is None:
+            return []
+        parent_map = {start: None}
+        queue = [start]
+        while queue:
+            current = queue.pop(0)
             if current.value == value:
-                return visited
-            if current not in visited:
-                visited.append(current)
-                to_visit.extend(current.children)
-        return visited
+                path = []
+                while current is not None:
+                    path.insert(0, current)
+                    current = parent_map[current]
+                return path
+            for child in current.children:
+                if child not in parent_map:
+                    parent_map[child] = current
+                    queue.append(child)
+        return []
                     
     def traverse(self, current_node = None):
         if current_node is None:
@@ -125,5 +132,5 @@ gt.insert(54, 540)
 gt.insert(540, 541)
 gt.insert(10, 666)
 
-print(gt.BFS(10))
+print(gt.BFS(666))
 gt.print()
