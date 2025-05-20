@@ -52,36 +52,36 @@ class Maze:
         return self.laberinto
     
     def crear_arbol(self, current = None):
-        if current is None:
-            pass
         casillas_visitadas = []
-        ubicacion = self.ubicacion_jugadores[0]
-        x = ubicacion[0]
-        y = ubicacion[1]
+        if current is None:
+            current = self.ubicacion_jugadores[0]
+            casillas_visitadas.append(current)
+        x = current[0]
+        y = current[1]
 
         if x+1 < self.n_casillas and self.laberinto[x+1][y] != 'X ':
             nueva_ubicacion = (x+1, y)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
-                self.arbol.insert(ubicacion, nueva_ubicacion)
+                self.arbol.insert(current, nueva_ubicacion)
 
         if x-1 >= 0 and self.laberinto[x-1][y] != 'X ':
             nueva_ubicacion = (x-1, y)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
-                self.arbol.insert(ubicacion, nueva_ubicacion)
+                self.arbol.insert(current, nueva_ubicacion)
 
         if y+1 < self.n_casillas and self.laberinto[x][y+1] != 'X ':
             nueva_ubicacion = (x, y+1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
-                self.arbol.insert(ubicacion, nueva_ubicacion)
+                self.arbol.insert(current, nueva_ubicacion)
 
         if y-1 >= 0 and self.laberinto[x][y-1] != 'X ':
             nueva_ubicacion = (x, y-1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
-                self.arbol.insert(ubicacion, nueva_ubicacion)
+                self.arbol.insert(current, nueva_ubicacion)
 
         print(casillas_visitadas)
         self.arbol.print()
