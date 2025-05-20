@@ -51,8 +51,7 @@ class Maze:
     def retornar_laberinto(self):
         return self.laberinto
     
-    def crear_arbol(self, current = None):
-        casillas_visitadas = []
+    def crear_arbol(self, current = None, casillas_visitadas = []):
         if current is None:
             current = self.ubicacion_jugadores[0]
             casillas_visitadas.append(current)
@@ -64,26 +63,30 @@ class Maze:
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
+                self.crear_arbol(nueva_ubicacion, casillas_visitadas)
 
         if x-1 >= 0 and self.laberinto[x-1][y] != 'X ':
             nueva_ubicacion = (x-1, y)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
+                self.crear_arbol(nueva_ubicacion, casillas_visitadas)
 
         if y+1 < self.n_casillas and self.laberinto[x][y+1] != 'X ':
             nueva_ubicacion = (x, y+1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
+                self.crear_arbol(nueva_ubicacion, casillas_visitadas)
 
         if y-1 >= 0 and self.laberinto[x][y-1] != 'X ':
             nueva_ubicacion = (x, y-1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
+                self.crear_arbol(nueva_ubicacion, casillas_visitadas)
 
-        print(casillas_visitadas)
+    def imprimir_arbol(self):
         self.arbol.print()
     
 
@@ -93,3 +96,4 @@ laberinto = m.retornar_laberinto()
 print(*laberinto, sep="\n")
 
 m.crear_arbol()
+m.imprimir_arbol()
