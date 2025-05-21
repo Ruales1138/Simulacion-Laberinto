@@ -25,7 +25,7 @@ class Maze:
         if columna == self.n_casillas:
             matriz.append(fila_completa)
             return self.generar_matriz(fila+1, 0, matriz, [])
-        fila_completa.append(random.choice([self.vacio, self.vacio, self.pared]))
+        fila_completa.append(random.choice([self.vacio, self.pared]))
         return self.generar_matriz(fila, columna+1, matriz, fila_completa)
     
     def ubicar_aleatorio(self, elemento):
@@ -139,22 +139,20 @@ class Maze:
         return self.definir_ruta()
     
     def siguiente_iteracion(self):
-        
-        posicion = self.ubicacion_jugadores[0]
-        print(posicion)
-        x = posicion[0]
-        y = posicion[1]
-        self.laberinto[x][y] = self.recorrido
-
         ruta = self.definir_ruta()
-        
-        nueva_pos = ruta[1].value
-        print(nueva_pos)
-        nx = nueva_pos[0]
-        ny = nueva_pos[1]
-        self.laberinto[nx][ny] = self.jugador
-        self.ubicacion_jugadores[0] = nueva_pos
-        self.arbol.delte_tree()
+        if ruta == []:
+            return False
+        else:
+            posicion = self.ubicacion_jugadores[0]
+            x = posicion[0]
+            y = posicion[1]
+            self.laberinto[x][y] = self.recorrido
+            nueva_pos = ruta[1].value
+            nx = nueva_pos[0]
+            ny = nueva_pos[1]
+            self.laberinto[nx][ny] = self.jugador
+            self.ubicacion_jugadores[0] = nueva_pos
+            self.arbol.delete_tree()
 
 
 

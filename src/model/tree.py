@@ -51,7 +51,7 @@ class GeneralTree:
                     queue.append(child)
         return []
     
-    def delte_tree(self):
+    def delete_tree(self):
         self.root = None
         self.added_values = []
                     
@@ -112,7 +112,7 @@ class GeneralTree:
         if node is None:
             node = self.root
         if node is None:
-            print("Empty Tree")
+            print("Arbol vacio")
             return
         connector = "└── " if is_last else "├── "
         print(prefix + connector + str(node))
