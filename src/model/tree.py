@@ -10,24 +10,25 @@ class Node:
 class GeneralTree:
     def __init__(self):
         self.root: Node = None
+        self.added_values = []
     
-    def insert(self, parent, child, current_node = None, added_values = []):
+    def insert(self, parent, child, current_node = None):
         if current_node is None:
             current_node = self.root
         if self.root is None:
             self.root = Node(parent)
             self.root.children.append(Node(child))
-            added_values.append(parent)
-            added_values.append(child)
+            self.added_values.append(parent)
+            self.added_values.append(child)
         else:
             if current_node.value == parent:
-                if child not in added_values:
+                if child not in self.added_values:
                     current_node.children.append(Node(child))
-                    added_values.append(child)
+                    self.added_values.append(child)
                     return True
             else:
                 for ch in current_node.children:
-                    if (self.insert(parent, child, ch, added_values)) is True:
+                    if (self.insert(parent, child, ch)) is True:
                         return True
                     
     def BFS(self, value):
@@ -52,6 +53,7 @@ class GeneralTree:
     
     def delte_tree(self):
         self.root = None
+        self.added_values = []
                     
     def traverse(self, current_node = None):
         if current_node is None:
@@ -144,5 +146,23 @@ class GeneralTree:
 # gt.print()
 
 # gt.delte_tree()
+# gt.print()
+
+# gt.insert(4,1)
+# gt.insert(4,2)
+# gt.insert(4,3)
+# gt.insert(4,5)
+# gt.insert(1, 10)
+# gt.insert(2, 11)
+# gt.insert(10, 12)
+# gt.insert(5, 10)
+# gt.insert(10, 66)
+# gt.insert(10, 54)
+# gt.insert(2, 54)
+# gt.insert(12, 54)
+# gt.insert(54, 540)
+# gt.insert(540, 541)
+# gt.insert(10, 666)
+# gt.insert(10, 666)
 # gt.print()
 
