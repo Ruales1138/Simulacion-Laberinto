@@ -35,7 +35,7 @@ class Console:
                     print(f'Ruta: {ruta}')
 
                 if self.opcion == 2:
-                    pass
+                    self.maze.bloqueo_aleatorio()
 
                 if self.opcion == 3:
                     pass

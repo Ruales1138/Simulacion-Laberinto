@@ -90,6 +90,7 @@ class Maze:
                 self.crear_arbol_DFS(nueva_ubicacion, casillas_visitadas)
 
     def crear_arbol_BFS(self):
+        self.arbol.delete_tree() 
         inicio = self.ubicacion_jugadores[0]
         fila = [inicio]
         casillas_visitadas = []
@@ -138,6 +139,15 @@ class Maze:
         self.imprimir_arbol()
         return self.definir_ruta()
     
+    def bloqueo_aleatorio(self):
+        x = random.randint(0, len(self.laberinto) - 1)
+        y = random.randint(0, len(self.laberinto) - 1)
+        print((x,y))
+        if self.laberinto[x][y] == self.vacio:
+            self.laberinto[x][y] = self.bloqueo
+        else:
+            self.bloqueo_aleatorio()
+    
     def siguiente_iteracion(self):
         ruta = self.definir_ruta()
         if len(ruta) < 2:
@@ -152,7 +162,7 @@ class Maze:
             ny = nueva_pos[1]
             self.laberinto[nx][ny] = self.jugador
             self.ubicacion_jugadores[0] = nueva_pos
-            self.arbol.delete_tree() 
+            self.bloqueo_aleatorio()
             if self.ubicacion_jugadores[0] == self.ubicacion_meta:
                 return True
 
