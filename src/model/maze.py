@@ -139,5 +139,6 @@ class Maze:
     
     def siguiente_iteracion(self):
         pass
+
     
 

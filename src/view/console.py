@@ -44,7 +44,7 @@ class Console:
                     pass
 
                 if self.opcion == 6:
-                    pass
+                    self.maze.siguiente_iteracion()
 
 
 c = Console()
