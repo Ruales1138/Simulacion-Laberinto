@@ -3,15 +3,6 @@ sys.path.append('src')
 from model.maze import Maze
 
 
-# m = Maze(5, 1)
-# laberinto = m.retornar_laberinto()
-# print(*laberinto, sep="\n")
-
-# m.crear_arbol_BFS()
-# m.imprimir_arbol()
-# print(m.definir_ruta())
-
-
 class Console:
     def __init__(self):
         self.maze = Maze(5, 1)
@@ -37,12 +28,10 @@ class Console:
             else:
                 self.opcion = int(self.opcion)
 
-                if self.opcion == 1:
+                if self.opcion == 1 or self.opcion == 5:
                     print()
                     print(*self.laberinto, sep="\n")
-                    self.maze.crear_arbol_BFS()
-                    self.maze.imprimir_arbol()
-                    ruta = self.maze.definir_ruta()
+                    ruta = self.maze.simular_ruta()
                     print(f'Ruta: {ruta}')
 
                 if self.opcion == 2:
@@ -52,9 +41,6 @@ class Console:
                     pass
 
                 if self.opcion == 4:
-                    pass
-
-                if self.opcion == 5:
                     pass
 
                 if self.opcion == 6:

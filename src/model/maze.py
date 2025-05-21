@@ -132,4 +132,12 @@ class Maze:
         ruta = self.arbol.BFS(self.ubicacion_meta)
         return ruta
     
+    def simular_ruta(self):
+        self.crear_arbol_BFS()
+        self.imprimir_arbol()
+        return self.definir_ruta()
+    
+    def siguiente_iteracion(self):
+        pass
+    
 
