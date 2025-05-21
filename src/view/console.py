@@ -45,6 +45,10 @@ class Console:
 
                 if self.opcion == 6:
                     self.maze.siguiente_iteracion()
+                    print()
+                    print(*self.laberinto, sep="\n")
+                    ruta = self.maze.simular_ruta()
+                    print(f'Ruta: {ruta}')
 
 
 c = Console()

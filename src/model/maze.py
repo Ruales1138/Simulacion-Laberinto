@@ -139,18 +139,18 @@ class Maze:
     
     def siguiente_iteracion(self):
         posicion = self.ubicacion_jugadores[0]
+        print(posicion)
         x = posicion[0]
         y = posicion[1]
         self.laberinto[x][y] = self.vacio
 
         ruta = self.definir_ruta()
-        print(ruta)
-        nueva_pos = ruta[1]
+        nueva_pos = ruta[1].value
         print(nueva_pos)
-        nx = nueva_pos.value[0]
-        ny = nueva_pos.value[1]
-        print(nx, ny)
+        nx = nueva_pos[0]
+        ny = nueva_pos[1]
         self.laberinto[nx][ny] = self.jugador
+        self.ubicacion_jugadores[0] = nueva_pos
 
 
 
