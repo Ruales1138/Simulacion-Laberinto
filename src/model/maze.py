@@ -151,6 +151,7 @@ class Maze:
         ny = nueva_pos[1]
         self.laberinto[nx][ny] = self.jugador
         self.ubicacion_jugadores[0] = nueva_pos
+        self.arbol.delte_tree()
 
 
 

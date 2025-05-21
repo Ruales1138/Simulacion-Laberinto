@@ -49,6 +49,9 @@ class GeneralTree:
                     parent_map[child] = current
                     queue.append(child)
         return []
+    
+    def delte_tree(self):
+        self.root = None
                     
     def traverse(self, current_node = None):
         if current_node is None:
@@ -139,3 +142,7 @@ class GeneralTree:
 
 # print(gt.BFS(666))
 # gt.print()
+
+# gt.delte_tree()
+# gt.print()
+
