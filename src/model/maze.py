@@ -11,6 +11,7 @@ class Maze:
         self.pared: str = '🧱'
         self.jugador: str = '👶'
         self.meta: str = '🚩'
+        self.recorrido: str = 'X '
         self.n_casillas: int = n_casillas
         self.n_jugadores: int = n_jugadores
         self.laberinto = None
@@ -97,28 +98,28 @@ class Maze:
             x = current[0]
             y = current[1]
 
-            if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.pared:
+            if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.pared and self.laberinto[x+1][y] != self.recorrido:
                 nueva_ubicacion = (x+1, y)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if x-1 >= 0 and self.laberinto[x-1][y] != self.pared:
+            if x-1 >= 0 and self.laberinto[x-1][y] != self.pared and self.laberinto[x-1][y] != self.recorrido:
                 nueva_ubicacion = (x-1, y)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.pared:
+            if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.pared and self.laberinto[x][y+1] != self.recorrido:
                 nueva_ubicacion = (x, y+1)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if y-1 >= 0 and self.laberinto[x][y-1] != self.pared:
+            if y-1 >= 0 and self.laberinto[x][y-1] != self.pared and self.laberinto[x][y-1] != self.recorrido:
                 nueva_ubicacion = (x, y-1)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
@@ -138,13 +139,15 @@ class Maze:
         return self.definir_ruta()
     
     def siguiente_iteracion(self):
+        
         posicion = self.ubicacion_jugadores[0]
         print(posicion)
         x = posicion[0]
         y = posicion[1]
-        self.laberinto[x][y] = self.vacio
+        self.laberinto[x][y] = self.recorrido
 
         ruta = self.definir_ruta()
+        
         nueva_pos = ruta[1].value
         print(nueva_pos)
         nx = nueva_pos[0]
