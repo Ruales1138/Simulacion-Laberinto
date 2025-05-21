@@ -40,12 +40,10 @@ class Maze:
         for _ in range(self.n_jugadores):
             x, y = self.ubicar_aleatorio(self.jugador)
             self.ubicacion_jugadores.append((x, y))
-        print(self.ubicacion_jugadores)
 
     def crear_meta(self):
         x, y = self.ubicar_aleatorio(self.meta)
         self.ubicacion_meta = (x, y)
-        print(self.ubicacion_meta)
 
     def crear_laberinto(self):
         self.laberinto = self.generar_matriz()
@@ -135,11 +133,3 @@ class Maze:
         return ruta
     
 
-
-m = Maze(5, 1)
-laberinto = m.retornar_laberinto()
-print(*laberinto, sep="\n")
-
-m.crear_arbol_BFS()
-m.imprimir_arbol()
-print(m.definir_ruta())

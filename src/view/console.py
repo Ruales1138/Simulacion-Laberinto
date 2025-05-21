@@ -1,9 +1,25 @@
+import sys
+sys.path.append('src')
+from model.maze import Maze
+
+
+# m = Maze(5, 1)
+# laberinto = m.retornar_laberinto()
+# print(*laberinto, sep="\n")
+
+# m.crear_arbol_BFS()
+# m.imprimir_arbol()
+# print(m.definir_ruta())
+
+
 class Console:
     def __init__(self):
-        self.option: int = 0
+        self.maze = Maze(5, 1)
+        self.laberinto = self.maze.retornar_laberinto()
+        self.opcion: int = 0
 
-    def print_menu(self):
-        while self.option != 7:
+    def imprimir_menu(self):
+        while self.opcion != 7:
             print('--------------------------------------------')
             print('📋 Menú Interactivo')
             print('')
@@ -15,8 +31,35 @@ class Console:
             print('6️⃣  Ejecutar siguiente iteración')
             print('7️⃣  Salir del juego')
             print('--------------------------------------------')
-            self.option = int(input('Seleccione una opción: '))
+            self.opcion = input('Seleccione una opción: ')
+            if self.opcion == '':
+                self.opcion = 0
+            else:
+                self.opcion = int(self.opcion)
+
+                if self.opcion == 1:
+                    print()
+                    print(*self.laberinto, sep="\n")
+                    self.maze.crear_arbol_BFS()
+                    self.maze.imprimir_arbol()
+                    ruta = self.maze.definir_ruta()
+                    print(f'Ruta: {ruta}')
+
+                if self.opcion == 2:
+                    pass
+
+                if self.opcion == 3:
+                    pass
+
+                if self.opcion == 4:
+                    pass
+
+                if self.opcion == 5:
+                    pass
+
+                if self.opcion == 6:
+                    pass
 
 
 c = Console()
-c.print_menu()
+c.imprimir_menu()

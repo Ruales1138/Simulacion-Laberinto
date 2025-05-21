@@ -11,19 +11,23 @@ class GeneralTree:
     def __init__(self):
         self.root: Node = None
     
-    def insert(self, parent, child, current_node = None):
+    def insert(self, parent, child, current_node = None, added_values = []):
         if current_node is None:
             current_node = self.root
         if self.root is None:
             self.root = Node(parent)
             self.root.children.append(Node(child))
+            added_values.append(parent)
+            added_values.append(child)
         else:
             if current_node.value == parent:
-                current_node.children.append(Node(child))
-                return True
+                if child not in added_values:
+                    current_node.children.append(Node(child))
+                    added_values.append(child)
+                    return True
             else:
                 for ch in current_node.children:
-                    if (self.insert(parent, child, ch)) is True:
+                    if (self.insert(parent, child, ch, added_values)) is True:
                         return True
                     
     def BFS(self, value):
@@ -130,6 +134,7 @@ class GeneralTree:
 # gt.insert(12, 54)
 # gt.insert(54, 540)
 # gt.insert(540, 541)
+# gt.insert(10, 666)
 # gt.insert(10, 666)
 
 # print(gt.BFS(666))
