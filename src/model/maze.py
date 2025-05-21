@@ -8,7 +8,7 @@ class Maze:
     def __init__(self, n_casillas, n_jugadores):
         self.arbol = GeneralTree()
         self.vacio: str = '  '
-        self.pared: str = '🧱'
+        self.bloqueo: str = '🧱'
         self.jugador: str = '👶'
         self.meta: str = '🚩'
         self.recorrido: str = '🔷'
@@ -25,7 +25,7 @@ class Maze:
         if columna == self.n_casillas:
             matriz.append(fila_completa)
             return self.generar_matriz(fila+1, 0, matriz, [])
-        fila_completa.append(random.choice([self.vacio, self.vacio, self.pared]))
+        fila_completa.append(random.choice([self.vacio, self.vacio, self.bloqueo]))
         return self.generar_matriz(fila, columna+1, matriz, fila_completa)
     
     def ubicar_aleatorio(self, elemento):
@@ -61,28 +61,28 @@ class Maze:
         x = current[0]
         y = current[1]
 
-        if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.pared:
+        if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.bloqueo:
             nueva_ubicacion = (x+1, y)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
                 self.crear_arbol_DFS(nueva_ubicacion, casillas_visitadas)
 
-        if x-1 >= 0 and self.laberinto[x-1][y] != self.pared:
+        if x-1 >= 0 and self.laberinto[x-1][y] != self.bloqueo:
             nueva_ubicacion = (x-1, y)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
                 self.crear_arbol_DFS(nueva_ubicacion, casillas_visitadas)
 
-        if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.pared:
+        if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.bloqueo:
             nueva_ubicacion = (x, y+1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
                 self.arbol.insert(current, nueva_ubicacion)
                 self.crear_arbol_DFS(nueva_ubicacion, casillas_visitadas)
 
-        if y-1 >= 0 and self.laberinto[x][y-1] != self.pared:
+        if y-1 >= 0 and self.laberinto[x][y-1] != self.bloqueo:
             nueva_ubicacion = (x, y-1)
             if nueva_ubicacion not in casillas_visitadas:
                 casillas_visitadas.append(nueva_ubicacion)
@@ -98,28 +98,28 @@ class Maze:
             x = current[0]
             y = current[1]
 
-            if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.pared and self.laberinto[x+1][y] != self.recorrido:
+            if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.bloqueo and self.laberinto[x+1][y] != self.recorrido:
                 nueva_ubicacion = (x+1, y)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if x-1 >= 0 and self.laberinto[x-1][y] != self.pared and self.laberinto[x-1][y] != self.recorrido:
+            if x-1 >= 0 and self.laberinto[x-1][y] != self.bloqueo and self.laberinto[x-1][y] != self.recorrido:
                 nueva_ubicacion = (x-1, y)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.pared and self.laberinto[x][y+1] != self.recorrido:
+            if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.bloqueo and self.laberinto[x][y+1] != self.recorrido:
                 nueva_ubicacion = (x, y+1)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if y-1 >= 0 and self.laberinto[x][y-1] != self.pared and self.laberinto[x][y-1] != self.recorrido:
+            if y-1 >= 0 and self.laberinto[x][y-1] != self.bloqueo and self.laberinto[x][y-1] != self.recorrido:
                 nueva_ubicacion = (x, y-1)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)

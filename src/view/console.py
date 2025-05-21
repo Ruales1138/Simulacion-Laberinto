@@ -52,7 +52,7 @@ class Console:
                     if respuesta is False:
                         print("ay muchachos...")
                     if respuesta is True:
-                        print('🚩!LLegaste a la meta¡🚩')
+                        print('🚩!LLegaste a la salida¡🚩')
 
 
 c = Console()
