@@ -140,7 +140,7 @@ class Maze:
     
     def siguiente_iteracion(self):
         ruta = self.definir_ruta()
-        if ruta == []:
+        if len(ruta) < 2:
             return False
         else:
             posicion = self.ubicacion_jugadores[0]
@@ -153,6 +153,8 @@ class Maze:
             self.laberinto[nx][ny] = self.jugador
             self.ubicacion_jugadores[0] = nueva_pos
             self.arbol.delete_tree() 
+            if self.ubicacion_jugadores[0] == self.ubicacion_meta:
+                return True
 
 
 

@@ -51,6 +51,8 @@ class Console:
                     print(f'Ruta: {ruta}')
                     if respuesta is False:
                         print("ay muchachos...")
+                    if respuesta is True:
+                        print('🚩!LLegaste a la meta¡🚩')
 
 
 c = Console()
