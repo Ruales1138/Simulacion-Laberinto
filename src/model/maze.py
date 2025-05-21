@@ -11,7 +11,7 @@ class Maze:
         self.pared: str = '🧱'
         self.jugador: str = '👶'
         self.meta: str = '🚩'
-        self.recorrido: str = 'X '
+        self.recorrido: str = '🔷'
         self.n_casillas: int = n_casillas
         self.n_jugadores: int = n_jugadores
         self.laberinto = None
@@ -25,7 +25,7 @@ class Maze:
         if columna == self.n_casillas:
             matriz.append(fila_completa)
             return self.generar_matriz(fila+1, 0, matriz, [])
-        fila_completa.append(random.choice([self.vacio, self.pared]))
+        fila_completa.append(random.choice([self.vacio, self.vacio, self.pared]))
         return self.generar_matriz(fila, columna+1, matriz, fila_completa)
     
     def ubicar_aleatorio(self, elemento):
