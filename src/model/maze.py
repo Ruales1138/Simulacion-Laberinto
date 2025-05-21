@@ -12,11 +12,13 @@ class Maze:
         self.jugador: str = '👶'
         self.meta: str = '🚩'
         self.recorrido: str = '🔷'
+        self.trampa: str = '💀'
         self.n_casillas: int = n_casillas
         self.n_jugadores: int = n_jugadores
         self.laberinto = None
         self.ubicacion_jugadores = []
         self.ubicacion_meta = None
+        self.direcciones_bloqueadas = {'arriba': False, 'abajo': False, 'isquierda': False, 'derecha': False}
         self.crear_laberinto()
     
     def generar_matriz(self, fila: int = 0, columna: int = 0, matriz: list[list[int]] = [], fila_completa: list[int] = []) -> list[list[int]]:
@@ -25,7 +27,7 @@ class Maze:
         if columna == self.n_casillas:
             matriz.append(fila_completa)
             return self.generar_matriz(fila+1, 0, matriz, [])
-        fila_completa.append(random.choice([self.vacio, self.vacio, self.bloqueo]))
+        fila_completa.append(random.choice([self.bloqueo, self.vacio, self.vacio, self.vacio]))
         return self.generar_matriz(fila, columna+1, matriz, fila_completa)
     
     def ubicar_aleatorio(self, elemento):
@@ -99,28 +101,48 @@ class Maze:
             x = current[0]
             y = current[1]
 
-            if x+1 < self.n_casillas and self.laberinto[x+1][y] != self.bloqueo and self.laberinto[x+1][y] != self.recorrido:
+            if (
+                self.direcciones_bloqueadas['abajo'] is False and 
+                x+1 < self.n_casillas and 
+                self.laberinto[x+1][y] != self.bloqueo and 
+                self.laberinto[x+1][y] != self.recorrido
+                ):
                 nueva_ubicacion = (x+1, y)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if x-1 >= 0 and self.laberinto[x-1][y] != self.bloqueo and self.laberinto[x-1][y] != self.recorrido:
+            if (
+                self.direcciones_bloqueadas['arriba'] is False and
+                x-1 >= 0 and 
+                self.laberinto[x-1][y] != self.bloqueo and 
+                self.laberinto[x-1][y] != self.recorrido
+                ):
                 nueva_ubicacion = (x-1, y)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if y+1 < self.n_casillas and self.laberinto[x][y+1] != self.bloqueo and self.laberinto[x][y+1] != self.recorrido:
+            if (
+                self.direcciones_bloqueadas['derecha'] is False and 
+                y+1 < self.n_casillas and 
+                self.laberinto[x][y+1] != self.bloqueo and 
+                self.laberinto[x][y+1] != self.recorrido
+                ):
                 nueva_ubicacion = (x, y+1)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
                     self.arbol.insert(current, nueva_ubicacion)
                     fila.append(nueva_ubicacion)
 
-            if y-1 >= 0 and self.laberinto[x][y-1] != self.bloqueo and self.laberinto[x][y-1] != self.recorrido:
+            if (
+                self.direcciones_bloqueadas['isquierda'] is False and 
+                y-1 >= 0 and 
+                self.laberinto[x][y-1] != self.bloqueo and 
+                self.laberinto[x][y-1] != self.recorrido
+                ):
                 nueva_ubicacion = (x, y-1)
                 if nueva_ubicacion not in casillas_visitadas:
                     casillas_visitadas.append(nueva_ubicacion)
@@ -142,11 +164,33 @@ class Maze:
     def bloqueo_aleatorio(self):
         x = random.randint(0, len(self.laberinto) - 1)
         y = random.randint(0, len(self.laberinto) - 1)
-        print((x,y))
         if self.laberinto[x][y] == self.vacio:
             self.laberinto[x][y] = self.bloqueo
         else:
             self.bloqueo_aleatorio()
+
+    def trampa_aleatoria(self):
+        x = random.randint(0, len(self.laberinto) - 1)
+        y = random.randint(0, len(self.laberinto) - 1)
+        if self.laberinto[x][y] == self.vacio:
+            self.laberinto[x][y] = self.trampa
+        else:
+            self.trampa_aleatoria()
+
+    def ejecutar_trampa(self):
+        direccion = random.randint(0, 3)
+        if direccion == 0:
+            self.direcciones_bloqueadas['arriba'] = True
+            print('\n💀 Direccion hacia arriba bloqueada 💀')
+        if direccion == 1:
+            self.direcciones_bloqueadas['abajo'] = True
+            print('\n💀 Direccion hacia abajo bloqueada 💀')
+        if direccion == 2:
+            self.direcciones_bloqueadas['isquierda'] = True
+            print('\n💀 Direccion hacia la isquierda bloqueada 💀')
+        if direccion == 3:
+            self.direcciones_bloqueadas['derecha'] = True
+            print('\n💀 Direccion hacia la derecha bloqueada 💀')
     
     def siguiente_iteracion(self):
         ruta = self.definir_ruta()
@@ -160,11 +204,15 @@ class Maze:
             nueva_pos = ruta[1].value
             nx = nueva_pos[0]
             ny = nueva_pos[1]
+            if self.laberinto[nx][ny] == self.trampa:
+                self.ejecutar_trampa()
             self.laberinto[nx][ny] = self.jugador
             self.ubicacion_jugadores[0] = nueva_pos
             self.bloqueo_aleatorio()
+            self.trampa_aleatoria()
             if self.ubicacion_jugadores[0] == self.ubicacion_meta:
                 return True
+            
 
 
 

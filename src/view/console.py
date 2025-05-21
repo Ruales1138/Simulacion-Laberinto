@@ -38,7 +38,7 @@ class Console:
                     self.maze.bloqueo_aleatorio()
 
                 if self.opcion == 3:
-                    pass
+                    print(self.maze.direcciones_bloqueadas['derecha'])
 
                 if self.opcion == 4:
                     pass
