@@ -9,6 +9,12 @@ class Console:
         self.laberinto = self.maze.retornar_laberinto()
         self.opcion: int = 0
 
+    def imprimir_laberinto(self):
+        print()
+        print(*self.laberinto, sep="\n")
+        ruta = self.maze.simular_ruta()
+        print(f'Ruta: {ruta}')
+
     def imprimir_menu(self):
         while self.opcion != 7:
             print('--------------------------------------------')
@@ -29,26 +35,36 @@ class Console:
                 self.opcion = int(self.opcion)
 
                 if self.opcion == 1 or self.opcion == 5:
-                    print()
-                    print(*self.laberinto, sep="\n")
-                    ruta = self.maze.simular_ruta()
-                    print(f'Ruta: {ruta}')
+                    self.imprimir_laberinto()
 
                 if self.opcion == 2:
-                    self.maze.bloqueo_aleatorio()
+                    print()
+                    x = int(input('Ingrese numero de fila: '))
+                    y = int(input('Ingrese numero de columna: '))
+                    respuesta = self.maze.colocar_boqueo(x, y)
+                    if respuesta is True:
+                        print('✅ Bloqueo agregado')
+                    else:
+                        print('❌ Casilla ocupada')
+                    self.imprimir_laberinto()
 
                 if self.opcion == 3:
-                    print(self.maze.direcciones_bloqueadas['derecha'])
+                    print()
+                    x = int(input('Ingrese numero de fila: '))
+                    y = int(input('Ingrese numero de columna: '))
+                    respuesta = self.maze.colocar_trampa(x, y)
+                    if respuesta is True:
+                        print('✅ Trampa agregada')
+                    else:
+                        print('❌ Casilla ocupada')
+                    self.imprimir_laberinto()
 
                 if self.opcion == 4:
                     pass
 
                 if self.opcion == 6:
                     respuesta = self.maze.siguiente_iteracion()
-                    print()
-                    print(*self.laberinto, sep="\n")
-                    ruta = self.maze.simular_ruta()
-                    print(f'Ruta: {ruta}')
+                    self.imprimir_laberinto()
                     if respuesta is False:
                         print("ay muchachos...")
                     if respuesta is True:

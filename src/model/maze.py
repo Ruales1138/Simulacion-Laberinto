@@ -15,6 +15,7 @@ class Maze:
         self.trampa: str = '💀'
         self.n_casillas: int = n_casillas
         self.n_jugadores: int = n_jugadores
+        self.turno = 0
         self.laberinto = None
         self.ubicacion_jugadores = []
         self.ubicacion_meta = None
@@ -177,6 +178,21 @@ class Maze:
         else:
             self.trampa_aleatoria()
 
+    def colocar_boqueo(self, x, y):
+        if self.laberinto[x][y] == self.vacio:
+            self.laberinto[x][y] = self.bloqueo
+            return True
+        else:
+            return False
+
+    def colocar_trampa(self, x, y):
+        if self.laberinto[x][y] == self.vacio:
+            self.laberinto[x][y] = self.trampa
+            return True
+        else:
+            return False
+
+
     def ejecutar_trampa(self):
         direccion = random.randint(0, 3)
         if direccion == 0:
@@ -212,6 +228,13 @@ class Maze:
             self.trampa_aleatoria()
             if self.ubicacion_jugadores[0] == self.ubicacion_meta:
                 return True
+            
+    def cambiar_turno(self):
+        if self.turno == 0:
+            self.turno = 1
+        else:
+            self.turno = 0
+
             
 
 
