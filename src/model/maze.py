@@ -236,10 +236,14 @@ class Maze:
             self.cambiar_turno()
             
     def cambiar_turno(self):
-        if self.turno == 0:
-            self.turno = 1
+        len_j = len(self.ubicacion_jugadores)
+        if len_j == 1:
+            return
         else:
-            self.turno = 0
+            if self.turno + 1 < len_j:
+                self.turno += 1
+            else:
+                self.turno = 0
 
             
 

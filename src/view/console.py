@@ -5,7 +5,7 @@ from model.maze import Maze
 
 class Console:
     def __init__(self):
-        self.maze = Maze(5, 2)
+        self.maze = Maze(5, 3)
         self.laberinto = self.maze.retornar_laberinto()
         self.opcion: int = 0
 
@@ -64,8 +64,6 @@ class Console:
 
                 if self.opcion == 4:
                     self.maze.cambiar_turno()
-                    print(self.maze.turno)
-                    print(self.maze.ubicacion_jugadores)
 
                 if self.opcion == 6:
                     respuesta = self.maze.siguiente_iteracion()
