@@ -59,7 +59,7 @@ class Maze:
     
     def crear_arbol_DFS(self, current = None, casillas_visitadas = []):
         if current is None:
-            current = self.ubicacion_jugadores[0]
+            current = self.ubicacion_jugadores[self.turno]
             casillas_visitadas.append(current)
         x = current[0]
         y = current[1]
@@ -94,7 +94,7 @@ class Maze:
 
     def crear_arbol_BFS(self):
         self.arbol.delete_tree() 
-        inicio = self.ubicacion_jugadores[0]
+        inicio = self.ubicacion_jugadores[self.turno]
         fila = [inicio]
         casillas_visitadas = []
         while fila:
@@ -106,6 +106,7 @@ class Maze:
                 self.direcciones_bloqueadas['abajo'] is False and 
                 x+1 < self.n_casillas and 
                 self.laberinto[x+1][y] != self.bloqueo and 
+                self.laberinto[x+1][y] != self.jugador and 
                 self.laberinto[x+1][y] != self.recorrido
                 ):
                 nueva_ubicacion = (x+1, y)
@@ -118,6 +119,7 @@ class Maze:
                 self.direcciones_bloqueadas['arriba'] is False and
                 x-1 >= 0 and 
                 self.laberinto[x-1][y] != self.bloqueo and 
+                self.laberinto[x-1][y] != self.jugador and 
                 self.laberinto[x-1][y] != self.recorrido
                 ):
                 nueva_ubicacion = (x-1, y)
@@ -130,6 +132,7 @@ class Maze:
                 self.direcciones_bloqueadas['derecha'] is False and 
                 y+1 < self.n_casillas and 
                 self.laberinto[x][y+1] != self.bloqueo and 
+                self.laberinto[x][y+1] != self.jugador and 
                 self.laberinto[x][y+1] != self.recorrido
                 ):
                 nueva_ubicacion = (x, y+1)
@@ -142,6 +145,7 @@ class Maze:
                 self.direcciones_bloqueadas['isquierda'] is False and 
                 y-1 >= 0 and 
                 self.laberinto[x][y-1] != self.bloqueo and 
+                self.laberinto[x][y-1] != self.jugador and 
                 self.laberinto[x][y-1] != self.recorrido
                 ):
                 nueva_ubicacion = (x, y-1)
@@ -211,9 +215,10 @@ class Maze:
     def siguiente_iteracion(self):
         ruta = self.definir_ruta()
         if len(ruta) < 2:
+            self.cambiar_turno()
             return False
         else:
-            posicion = self.ubicacion_jugadores[0]
+            posicion = self.ubicacion_jugadores[self.turno]
             x = posicion[0]
             y = posicion[1]
             self.laberinto[x][y] = self.recorrido
@@ -223,11 +228,12 @@ class Maze:
             if self.laberinto[nx][ny] == self.trampa:
                 self.ejecutar_trampa()
             self.laberinto[nx][ny] = self.jugador
-            self.ubicacion_jugadores[0] = nueva_pos
+            self.ubicacion_jugadores[self.turno] = nueva_pos
             self.bloqueo_aleatorio()
             self.trampa_aleatoria()
-            if self.ubicacion_jugadores[0] == self.ubicacion_meta:
+            if self.ubicacion_jugadores[self.turno] == self.ubicacion_meta:
                 return True
+            self.cambiar_turno()
             
     def cambiar_turno(self):
         if self.turno == 0:

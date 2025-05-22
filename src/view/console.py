@@ -5,15 +5,18 @@ from model.maze import Maze
 
 class Console:
     def __init__(self):
-        self.maze = Maze(5, 1)
+        self.maze = Maze(5, 2)
         self.laberinto = self.maze.retornar_laberinto()
         self.opcion: int = 0
 
     def imprimir_laberinto(self):
         print()
+        print(f'Turno del jugador {self.maze.turno + 1}')
         print(*self.laberinto, sep="\n")
         ruta = self.maze.simular_ruta()
         print(f'Ruta: {ruta}')
+        if ruta == []:
+            print('ay muchachos...')
 
     def imprimir_menu(self):
         while self.opcion != 7:
@@ -60,15 +63,15 @@ class Console:
                     self.imprimir_laberinto()
 
                 if self.opcion == 4:
-                    pass
+                    self.maze.cambiar_turno()
+                    print(self.maze.turno)
+                    print(self.maze.ubicacion_jugadores)
 
                 if self.opcion == 6:
                     respuesta = self.maze.siguiente_iteracion()
                     self.imprimir_laberinto()
-                    if respuesta is False:
-                        print("ay muchachos...")
                     if respuesta is True:
-                        print('🚩!LLegaste a la salida¡🚩')
+                        print(f'🚩¡Jugador {self.maze.turno + 1} lluego a la meta!🚩')
 
 
 c = Console()
