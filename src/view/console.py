@@ -5,7 +5,7 @@ from model.maze import Maze
 
 class Console:
     def __init__(self):
-        self.maze = Maze(5, 3)
+        self.maze = Maze(5, 1)
         self.laberinto = self.maze.retornar_laberinto()
         self.opcion: int = 0
 
@@ -63,13 +63,22 @@ class Console:
                     self.imprimir_laberinto()
 
                 if self.opcion == 4:
-                    self.maze.cambiar_turno()
+                    print()
+                    x = int(input('Ingrese numero de fila: '))
+                    y = int(input('Ingrese numero de columna: '))
+                    respuesta = self.maze.colocar_retrasador(x, y)
+                    if respuesta is True:
+                        print('✅ Retrasador agregad0')
+                    else:
+                        print('❌ Casilla ocupada')
+                    self.imprimir_laberinto()
 
                 if self.opcion == 6:
                     respuesta = self.maze.siguiente_iteracion()
                     self.imprimir_laberinto()
                     if respuesta is True:
-                        print(f'🚩¡Jugador {self.maze.turno + 1} lluego a la meta!🚩')
+                        print(f'🚩¡Jugador {self.maze.turno + 1} llego a la meta!🚩')
+                        self.opcion = 7
 
 
 c = Console()

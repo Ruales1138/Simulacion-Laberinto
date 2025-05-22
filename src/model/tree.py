@@ -55,59 +55,6 @@ class GeneralTree:
         self.root = None
         self.added_values = []
                     
-    def traverse(self, current_node = None):
-        if current_node is None:
-            current_node = self.root
-        print(current_node.value)
-        for ch in current_node.children:
-            self.traverse(ch)
-
-    def buscar(self, value, current_node = None):
-        if current_node is None:
-            current_node = self.root
-        if self.root is None:
-            return 'No hay nodos'
-        else:
-            if current_node.value == value:
-                return True
-            else:
-                for ch in current_node.children:
-                    if (self.buscar(value, ch)) is True:
-                        return True
-                    
-    def eliminar_con_hijos(self, value, current_node = None):
-        if current_node is None:
-            current_node = self.root
-        if self.root is None:
-            return 'No hay nodos'
-        else:
-            if current_node.value == value:
-                return True
-            else:
-                for ch in current_node.children:
-                    if ch.value == value:
-                        current_node.children.remove(ch)
-                        return True
-                    if (self.eliminar_con_hijos(value, ch) is True):
-                        return True
-                    
-    def eliminar_sin_hijos(self, value, current_node = None):
-        if current_node is None:
-            current_node = self.root
-        if self.root is None:
-            return 'No hay nodos'
-        else:
-            if current_node.value == value:
-                return True
-            else:
-                for ch in current_node.children:
-                    if ch.value == value:
-                        current_node.children.extend(ch.children)
-                        current_node.children.remove(ch)
-                        return True
-                    if (self.eliminar_sin_hijos(value, ch) is True):
-                        return True
-                    
     def print(self, node=None, prefix="", is_last=True):
         if node is None:
             node = self.root
