@@ -38,7 +38,7 @@ Es clave que en cada iteración, por cada persona:
 Recuerda:
 - Solo los bloqueos afectan el cálculo de la ruta más corta.
 - Las trampas y retrasadores se deben ver claramente en el mapa pero no afectan la elección de ruta.
-##📋 Menú Interactivo
+## 📋 Menú Interactivo
 La aplicación deberá contar con un menú que permita al usuario:
 1. Iniciar simulación: comienza el juego con posiciones aleatorias de salida y
 personajes.
