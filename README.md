@@ -33,6 +33,8 @@ Es clave que en cada iteración, por cada persona:
   - Bloqueos: celdas rellenas en negro o símbolos tipo "X".
   - Trampas: símbolos diferentes, como "T".
   - Retrasadores: símbolos diferentes, como "R".
+
+    
 Recuerda:
 - Solo los bloqueos afectan el cálculo de la ruta más corta.
 - Las trampas y retrasadores se deben ver claramente en el mapa pero no afectan la elección de ruta.
