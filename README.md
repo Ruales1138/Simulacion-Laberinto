@@ -57,14 +57,13 @@ retrasadores.
     - Representar la ruta más corta calculada en cada iteración mediante árboles (BFS o Dijkstra).
 - Árbol Histórico de Decisiones:
     - Cada persona deberá mantener un registro en forma de árbol que registre todas las decisiones tomadas en cada iteración:
-■ Nodo raíz: posición inicial del personaje.
-■ Cada nodo: celda visitada con información sobre la iteración y
-dirección elegida.
-■ Ramas: representan decisiones alternativas disponibles desde cada
-celda.
-○ Este árbol permitirá analizar posteriormente la lógica detrás de cada decisión
-tomada por los personajes.
-○ Ejemplo Gráfico:
+        - Nodo raíz: posición inicial del personaje.
+        - Cada nodo: celda visitada con información sobre la iteración y dirección elegida.
+        - Ramas: representan decisiones alternativas disponibles desde cada celda.
+    - Este árbol permitirá analizar posteriormente la lógica detrás de cada decisión tomada por los personajes.
+    - Ejemplo Gráfico:
+ 
+      
 Persona A - Inicio (Celda 2,2)
 ── Iteración 1: Celda 3,3 (decisión elegida)
 │ ├── Iteración 2: Celda 4,4 (decisión elegida)
