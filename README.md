@@ -7,8 +7,8 @@ solo una salida, ubicada aleatoriamente en la matriz.
 Cada persona intentará escapar, pero el laberinto colocará dinámicamente bloqueos,
 trampas y retrasadores, dificultando su objetivo de sobrevivir.
 ## 🕹 Reglas del Juego
-● Inicialmente, cada persona se ubica en una posición aleatoria de la matriz.
-● En cada iteración:
+- Inicialmente, cada persona se ubica en una posición aleatoria de la matriz.
+- En cada iteración:
 ○ Cada persona calcula la ruta más corta hacia la salida, utilizando
 estructuras tipo árbol.
 ○ Las personas solo se mueven una celda por iteración, incluyendo
