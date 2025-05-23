@@ -51,6 +51,7 @@ retrasadores.
 5. Visualizar estado actual del laberinto.
 6. Ejecutar siguiente iteración: recalcula rutas y actualiza posiciones.
 7. Salir del juego.
+
 ## ⚙️ Estructuras Técnicas Requeridas
 - Árbol de Rutas:
     - Representar la ruta más corta calculada en cada iteración mediante árboles (BFS o Dijkstra).
