@@ -65,18 +65,33 @@ retrasadores.
  
       
 Persona A - Inicio (Celda 2,2)
+
+
 ── Iteración 1: Celda 3,3 (decisión elegida)
+
+
 │ ├── Iteración 2: Celda 4,4 (decisión elegida)
+
+
 │ │ ├── Iteración 3: Celda 5,5 (Salida 🏁)
+
+
 │ │ └── Iteración 3: Celda 4,5 (alternativa no elegida)
+
+
 │ └── Iteración 2: Celda 3,4 (alternativa no elegida)
+
+
 └── Iteración 1: Celda 2,3 (alternativa no elegida)
-🌟 Mejoras adicionales (opcionales)
+
+
+## 🌟 Mejoras adicionales (opcionales)
 Para obtener bonificaciones, considera:
-● Personajes con habilidades especiales.
-● Eventos especiales (derrumbes, inundaciones, explosiones).
-● Interacción entre personajes (compartir información, ayudar a recuperar
-movimientos).
+- Personajes con habilidades especiales.
+- Eventos especiales (derrumbes, inundaciones, explosiones).
+- Interacción entre personajes (compartir información, ayudar a recuperar movimientos).
+
+  
 📈 Criterios de evaluación - Implementación (40%)
 Aspecto Peso
 Modelado eficiente del laberinto dinámico y personajes y buenas
