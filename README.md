@@ -9,13 +9,10 @@ trampas y retrasadores, dificultando su objetivo de sobrevivir.
 ## 🕹 Reglas del Juego
 - Inicialmente, cada persona se ubica en una posición aleatoria de la matriz.
 - En cada iteración:
-○ Cada persona calcula la ruta más corta hacia la salida, utilizando
-estructuras tipo árbol.
-○ Las personas solo se mueven una celda por iteración, incluyendo
-diagonales si están disponibles.
-● Cada iteración, el laberinto atacará colocando de manera aleatoria bloqueos,
-trampas o retrasadores.
-📌 Efectos de Elementos en el Laberinto
+  - Cada persona calcula la ruta más corta hacia la salida, utilizando estructuras tipo árbol.
+  - Las personas solo se mueven una celda por iteración, incluyendo diagonales si están disponibles.
+- Cada iteración, el laberinto atacará colocando de manera aleatoria bloqueos, trampas o retrasadores.
+## 📌 Efectos de Elementos en el Laberinto
 ● Bloqueos (muros):
 ○ Impiden totalmente el paso y se consideran celdas bloqueadas en el cálculo
 de ruta.
