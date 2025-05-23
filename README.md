@@ -51,13 +51,11 @@ retrasadores.
 5. Visualizar estado actual del laberinto.
 6. Ejecutar siguiente iteración: recalcula rutas y actualiza posiciones.
 7. Salir del juego.
-⚙️ Estructuras Técnicas Requeridas
-● Árbol de Rutas:
-○ Representar la ruta más corta calculada en cada iteración mediante árboles
-(BFS o Dijkstra).
-● Árbol Histórico de Decisiones:
-○ Cada persona deberá mantener un registro en forma de árbol que registre
-todas las decisiones tomadas en cada iteración:
+## ⚙️ Estructuras Técnicas Requeridas
+- Árbol de Rutas:
+    - Representar la ruta más corta calculada en cada iteración mediante árboles (BFS o Dijkstra).
+- Árbol Histórico de Decisiones:
+    - Cada persona deberá mantener un registro en forma de árbol que registre todas las decisiones tomadas en cada iteración:
 ■ Nodo raíz: posición inicial del personaje.
 ■ Cada nodo: celda visitada con información sobre la iteración y
 dirección elegida.
