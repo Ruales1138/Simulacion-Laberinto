@@ -19,11 +19,11 @@ trampas y retrasadores, dificultando su objetivo de sobrevivir.
   - Al activarse, hacen que la persona afectada pierda permanentemente una dirección aleatoria de movimiento (arriba, abajo, izquierda, derecha o diagonales).
   - Las trampas no bloquean la celda para el cálculo de ruta.
 - Retrasadores:
-○ Al activarse, hacen que la persona pierda un turno.
-○ Tampoco bloquean la celda para el cálculo de ruta.
+  - Al activarse, hacen que la persona pierda un turno.
+  - Tampoco bloquean la celda para el cálculo de ruta.
 Si la ruta hacia la salida deja de existir debido a bloqueos, el personaje declara "ay
 muchachos..." y deja de moverse, aceptando su destino.
-🎨 Visualización
+## 🎨 Visualización
 Es clave que en cada iteración, por cada persona:
 ● Se visualice claramente el laberinto en consola o interfaz gráfica.
 ● Se destaque en un color llamativo la ruta completa desde la posición actual de
