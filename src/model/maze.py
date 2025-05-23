@@ -11,6 +11,7 @@ class Maze:
         self.bloqueo: str = '🧱'
         self.jugador: str = '👶'
         self.meta: str = '🚩'
+        self.meta_2: str = '🚩'
         self.recorrido: str = '🔷'
         self.trampa: str = '💀'
         self.retrasador: str = '🚫'
@@ -20,6 +21,7 @@ class Maze:
         self.laberinto = None
         self.ubicacion_jugadores = []
         self.ubicacion_meta = None
+        self.ubicacion_meta_2 = None
         self.direcciones_bloqueadas = {'arriba': False, 'abajo': False, 'isquierda': False, 'derecha': False}
         self.turno_bloqueado = None
         self.crear_laberinto()
@@ -30,7 +32,7 @@ class Maze:
         if columna == self.n_casillas:
             matriz.append(fila_completa)
             return self.generar_matriz(fila+1, 0, matriz, [])
-        fila_completa.append(random.choice([self.bloqueo, self.vacio, self.vacio, self.vacio]))
+        fila_completa.append(random.choice([self.bloqueo, self.vacio]))
         return self.generar_matriz(fila, columna+1, matriz, fila_completa)
     
     def ubicar_aleatorio(self, elemento):
@@ -51,15 +53,22 @@ class Maze:
         x, y = self.ubicar_aleatorio(self.meta)
         self.ubicacion_meta = (x, y)
 
+    def crear_meta_2(self):
+        x, y = self.ubicar_aleatorio(self.meta_2)
+        self.ubicacion_meta_2 = (x, y)
+
     def crear_laberinto(self):
         self.laberinto = self.generar_matriz()
         self.crear_jugadores()
         self.crear_meta()
+        self.crear_meta_2()
 
     def retornar_laberinto(self):
         return self.laberinto
 
     def crear_arbol_BFS(self):
+        if self.ubicacion_jugadores == []:
+            return False
         self.arbol.delete_tree() 
         inicio = self.ubicacion_jugadores[self.turno]
         fila = [inicio]
@@ -126,10 +135,13 @@ class Maze:
 
     def definir_ruta(self):
         ruta = self.arbol.BFS(self.ubicacion_meta)
-        return ruta
+        ruta_2 = self.arbol.BFS(self.ubicacion_meta_2)
+        return ruta, ruta_2
     
     def simular_ruta(self):
-        self.crear_arbol_BFS()
+        respuesta = self.crear_arbol_BFS()
+        if respuesta is False:
+            return [], []
         self.imprimir_arbol()
         return self.definir_ruta()
     
@@ -189,26 +201,31 @@ class Maze:
 
     def ejecutar_trampa(self):
         direccion = random.randint(0, 3)
-        if direccion == 0:
+        if direccion == 0 and self.direcciones_bloqueadas['arriba'] == False:
             self.direcciones_bloqueadas['arriba'] = True
             print('\n💀 Direccion hacia arriba bloqueada 💀')
+            return
         if direccion == 1:
             self.direcciones_bloqueadas['abajo'] = True
             print('\n💀 Direccion hacia abajo bloqueada 💀')
+            return
         if direccion == 2:
             self.direcciones_bloqueadas['isquierda'] = True
             print('\n💀 Direccion hacia la isquierda bloqueada 💀')
+            return
         if direccion == 3:
             self.direcciones_bloqueadas['derecha'] = True
             print('\n💀 Direccion hacia la derecha bloqueada 💀')
+            return
+        self.ejecutar_trampa()
 
     def ejecutar_retrasador(self):
         self.turno_bloqueado = self.turno
         print(f'\n🚫 Jugador {self.turno + 1} pierde un turno')
     
     def siguiente_iteracion(self):
-        ruta = self.definir_ruta()
-        if len(ruta) < 2:
+        ruta, ruta_2 = self.definir_ruta()
+        if len(ruta) < 2 and len(ruta_2) < 2:
             self.cambiar_turno()
             return False
         else:
@@ -216,7 +233,17 @@ class Maze:
             x = posicion[0]
             y = posicion[1]
             self.laberinto[x][y] = self.recorrido
-            nueva_pos = ruta[1].value
+            nueva_pos = None
+            if len(ruta) == 0 and len(ruta_2) > 1:
+                nueva_pos = ruta_2[1].value
+            if len(ruta_2) == 0 and len(ruta) > 1:
+                nueva_pos = ruta[1].value
+            if len(ruta) < len(ruta_2) and len(ruta) > 1:
+                nueva_pos = ruta[1].value
+            if len(ruta_2) < len(ruta) and len(ruta_2) > 1:
+                nueva_pos = ruta_2[1].value
+            if len(ruta) == len(ruta_2):
+                nueva_pos = ruta[1].value
             nx = nueva_pos[0]
             ny = nueva_pos[1]
             if self.laberinto[nx][ny] == self.trampa:
@@ -226,14 +253,21 @@ class Maze:
             self.laberinto[nx][ny] = self.jugador
             self.ubicacion_jugadores[self.turno] = nueva_pos
             self.obstaculo_aleatorio()
-            if self.ubicacion_jugadores[self.turno] == self.ubicacion_meta:
+            if self.ubicacion_jugadores[self.turno] == self.ubicacion_meta or self.ubicacion_jugadores[self.turno] == self.ubicacion_meta_2: 
+                self.laberinto[nx][ny] = self.meta
+                ubicacion = self.ubicacion_jugadores[self.turno]
+                self.ubicacion_jugadores.remove(ubicacion)
+                self.cambiar_turno()
                 return True
             self.cambiar_turno()
             
     def cambiar_turno(self):
         len_j = len(self.ubicacion_jugadores)
         if len_j == 1:
-            return
+            if self.turno == 0:
+                return
+            if self.turno == 1:
+                self.turno = 0
         else:
             if self.turno + 1 < len_j:
                 if self.turno + 1 != self.turno_bloqueado:
