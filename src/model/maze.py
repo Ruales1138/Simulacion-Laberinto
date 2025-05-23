@@ -205,15 +205,15 @@ class Maze:
             self.direcciones_bloqueadas['arriba'] = True
             print('\n💀 Direccion hacia arriba bloqueada 💀')
             return
-        if direccion == 1:
+        if direccion == 1 and self.direcciones_bloqueadas['abajo'] == False:
             self.direcciones_bloqueadas['abajo'] = True
             print('\n💀 Direccion hacia abajo bloqueada 💀')
             return
-        if direccion == 2:
+        if direccion == 2 and self.direcciones_bloqueadas['isquierda'] == False:
             self.direcciones_bloqueadas['isquierda'] = True
             print('\n💀 Direccion hacia la isquierda bloqueada 💀')
             return
-        if direccion == 3:
+        if direccion == 3 and self.direcciones_bloqueadas['derecha'] == False:
             self.direcciones_bloqueadas['derecha'] = True
             print('\n💀 Direccion hacia la derecha bloqueada 💀')
             return

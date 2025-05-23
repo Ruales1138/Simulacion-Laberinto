@@ -5,7 +5,7 @@ from model.maze import Maze
 
 class Console:
     def __init__(self):
-        self.maze = Maze(5, 2)
+        self.maze = Maze(5, 1)
         self.laberinto = self.maze.retornar_laberinto()
         self.opcion: int = 0
 
