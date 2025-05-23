@@ -1,5 +1,5 @@
-#🌳 The Maze of Terror 🌀
-##🎯 Contexto del Juego
+# 🌳 The Maze of Terror 🌀
+## 🎯 Contexto del Juego
 Un grupo de M personas está atrapado en un laberinto dinámico de tamaño NxN. Existe
 solo una salida, ubicada aleatoriamente en la matriz.
 
