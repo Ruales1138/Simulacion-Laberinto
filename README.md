@@ -25,20 +25,18 @@ Si la ruta hacia la salida deja de existir debido a bloqueos, el personaje decla
 muchachos..." y deja de moverse, aceptando su destino.
 ## 🎨 Visualización
 Es clave que en cada iteración, por cada persona:
-● Se visualice claramente el laberinto en consola o interfaz gráfica.
-● Se destaque en un color llamativo la ruta completa desde la posición actual de
-cada persona hasta la salida.
-● Los elementos del laberinto deben distinguirse claramente:
-○ Personas: caracteres o iconos específicos.
-○ Salida: un símbolo claro (ej: 🏁).
-○ Bloqueos: celdas rellenas en negro o símbolos tipo "X".
-○ Trampas: símbolos diferentes, como "T".
-○ Retrasadores: símbolos diferentes, como "R".
+- Se visualice claramente el laberinto en consola o interfaz gráfica.
+- Se destaque en un color llamativo la ruta completa desde la posición actual de cada persona hasta la salida.
+- Los elementos del laberinto deben distinguirse claramente:
+  - Personas: caracteres o iconos específicos.
+  - Salida: un símbolo claro (ej: 🏁).
+  - Bloqueos: celdas rellenas en negro o símbolos tipo "X".
+  - Trampas: símbolos diferentes, como "T".
+  - Retrasadores: símbolos diferentes, como "R".
 Recuerda:
-● Solo los bloqueos afectan el cálculo de la ruta más corta.
-● Las trampas y retrasadores se deben ver claramente en el mapa pero no afectan la
-elección de ruta.
-📋 Menú Interactivo
+- Solo los bloqueos afectan el cálculo de la ruta más corta.
+- Las trampas y retrasadores se deben ver claramente en el mapa pero no afectan la elección de ruta.
+##📋 Menú Interactivo
 La aplicación deberá contar con un menú que permita al usuario:
 1. Iniciar simulación: comienza el juego con posiciones aleatorias de salida y
 personajes.
