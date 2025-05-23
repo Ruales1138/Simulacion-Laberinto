@@ -13,7 +13,7 @@ trampas y retrasadores, dificultando su objetivo de sobrevivir.
   - Las personas solo se mueven una celda por iteración, incluyendo diagonales si están disponibles.
 - Cada iteración, el laberinto atacará colocando de manera aleatoria bloqueos, trampas o retrasadores.
 ## 📌 Efectos de Elementos en el Laberinto
-### Bloqueos (muros):
+## -  Bloqueos (muros):
 - Impiden totalmente el paso y se consideran celdas bloqueadas en el cálculo de ruta.
 ### Trampas:
 ○ Al activarse, hacen que la persona afectada pierda permanentemente una
